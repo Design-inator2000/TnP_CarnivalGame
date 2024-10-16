@@ -11,12 +11,13 @@ public class ObjectPool<T> where T : IPoolableObject
 
     Queue<T> queue=new Queue<T>();
     Dictionary<T, GameObject> pooledObject=new Dictionary<T, GameObject>();
+    GameObject prefab;
     public ObjectPool(int initialSize,GameObject objectPrefab)
     {
-     
+        prefab = objectPrefab;
         for(int i = 0; i < initialSize; i++)
         {
-            GameObject obj = GameObject.Instantiate(objectPrefab);
+            GameObject obj = GameObject.Instantiate(prefab);
             T poolableObject = obj.GetComponent<T>();
             obj.SetActive(false);
             pool.Add(obj);
@@ -34,9 +35,24 @@ public class ObjectPool<T> where T : IPoolableObject
 
     public T Spawn(Vector3 position)
     {
-        T obj = queue.Dequeue();
-        pooledObject[obj].SetActive(true);
-        return obj;
+        if (queue.Count <= 0)
+        {
+            Debug.Log("adding new objects to pool");
+            for (int i = 0; i < 10; i++)
+            {
+                GameObject obj = GameObject.Instantiate(prefab);
+                T poolableObject = obj.GetComponent<T>();
+                obj.SetActive(false);
+                pool.Add(obj);
+                pooledObject[poolableObject] = obj;
+                queue.Enqueue(poolableObject);
+                poolableObject.OnDestroy += ObjectDisabled;
+            }
+        }
+            T x = queue.Dequeue();
+            pooledObject[x].SetActive(true);
+
+            return x;
 
     }
 

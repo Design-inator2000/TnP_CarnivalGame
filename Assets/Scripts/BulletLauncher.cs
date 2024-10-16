@@ -11,7 +11,7 @@ public class BulletLauncher : MonoBehaviour
     void Start()
     {
         bulletPool= new ObjectPool<Bullet>(25, bulletPrefab);
-        InvokeRepeating("SpawnBullet", 0.5f,2);
+        InvokeRepeating("SpawnBullet", 0.01f,0.1f);
     }
     void SpawnBullet()
     {
