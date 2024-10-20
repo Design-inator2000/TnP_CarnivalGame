@@ -6,7 +6,7 @@ using TMPro;
 
 public class ScoreObservation : MonoBehaviour
 {
-    public TextMeshProUGUI scoreTracker;
+    /*public TextMeshProUGUI scoreTracker;
     int score;
 
     private void OnEnable()
@@ -23,5 +23,5 @@ public class ScoreObservation : MonoBehaviour
     {
         score++;
         scoreTracker.text = $"Score: {score}";
-    }
+    }*/
 }
