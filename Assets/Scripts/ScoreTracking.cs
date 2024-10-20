@@ -1,19 +1,31 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ScoreTracking : MonoBehaviour
-{
-    public static event Action OnScoreUpdated;
+{    
+    public TextMeshProUGUI scoreTracker; // This is the TMP element that tracks the player's score.
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    int score; // This is the current score the player has.
+
+    // This OnEnable function subscribes the IncrementScore method to the OnScoreUpdated event.
+    private void OnEnable()
     {
-        if (collision.gameObject.CompareTag("Bullet"))
-        {
-            Destroy(this.gameObject);
-            OnScoreUpdated?.Invoke();
-        }
+        TargetBehavior.OnScoreUpdated += IncrementScore;
+    }
+
+    // This OnDisable function unsubscribes the IncrementScore method from the OnScoreUpdated event.
+    private void OnDisable()
+    {
+        TargetBehavior.OnScoreUpdated -= IncrementScore;
+    }
+
+    // This method will update the score text without hard references to other scripts (besides the event handler).
+    public void IncrementScore()
+    {
+        score++;
+        scoreTracker.text = $"Score: {score}";
     }
 
 }
