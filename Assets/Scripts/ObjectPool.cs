@@ -51,6 +51,7 @@ public class ObjectPool<T> where T : IPoolableObject
         }
             T x = queue.Dequeue();
             pooledObject[x].SetActive(true);
+        pooledObject[x].transform.position = position;
 
             return x;
 

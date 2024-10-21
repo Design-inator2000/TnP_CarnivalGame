@@ -22,9 +22,9 @@ public class ScoreTracking : MonoBehaviour
     }
 
     // This method will update the score text without hard references to other scripts (besides the event handler).
-    public void IncrementScore()
+    public void IncrementScore(int points)
     {
-        score++;
+        score += points;
         scoreTracker.text = $"Score: {score}";
     }
 
