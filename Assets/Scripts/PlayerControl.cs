@@ -9,6 +9,9 @@ public class PlayerControl : MonoBehaviour
     private ObjectPool<Bullet> bulletPool;
     public GameObject bulletPrefab;
 
+    //object separate from ScoreTracking that saves score value/might be better to connect it directly
+    public BinarySaveObject binarySaveObject;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +34,17 @@ public class PlayerControl : MonoBehaviour
         {
             Bullet bullet = bulletPool.Spawn(this.transform.position);
             bullet.Launch(Vector2.up * 5);
+        }
+
+        //Save Buttons
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            BinarySavingService.Save(binarySaveObject);
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightShift))
+        {
+            binarySaveObject = BinarySavingService.Load(); 
         }
     }
 }

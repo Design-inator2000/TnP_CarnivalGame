@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+
 public class ScoreTracking : MonoBehaviour
 {    
     public TextMeshProUGUI scoreTracker; // This is the TMP element that tracks the player's score.
 
-    int score; // This is the current score the player has.
+    public int score; // This is the current score the player has.
 
     // This OnEnable function subscribes the IncrementScore method to the OnScoreUpdated event.
     private void OnEnable()
