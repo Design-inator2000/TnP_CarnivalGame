@@ -11,7 +11,7 @@ public static class BinarySavingService
     public static string fileName = "MySave.txt";
 
     //BinarySaveObject is an serialized intermediary object that will hold the Player's score. This object will have to be accessed by the Score tracking class.
-    public static void Save(BinarySaveObject saveObject)
+    public static void Save(ScoreTracking saveObject)
     {
         BinaryFormatter binaryFormatter = new BinaryFormatter();
         FileStream file = File.Create(GetFullPath());
@@ -19,7 +19,7 @@ public static class BinarySavingService
         file.Close();
     }
 
-    public static BinarySaveObject Load()
+    public static ScoreTracking Load()
     {
         if (SaveExists())
         {
@@ -29,7 +29,7 @@ public static class BinarySavingService
 
                 BinaryFormatter binaryFormatter = new BinaryFormatter();
                 FileStream file = File.Open(GetFullPath(), FileMode.Open);
-                BinarySaveObject binarySaveObject = (BinarySaveObject)binaryFormatter.Deserialize(file);
+                ScoreTracking binarySaveObject = (ScoreTracking)binaryFormatter.Deserialize(file);
                 file.Close();
 
                 return binarySaveObject;
