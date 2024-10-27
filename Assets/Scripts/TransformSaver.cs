@@ -2,15 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LitJson;
+using System;
 
-public class TransformSaver : MonoBehaviour, ISaveable
+public class TransformSaver : SaveableBehaviour
 {
     string _saveID;
-    public string saveID {get{ return _saveID; } set { _saveID = value; } }
+    public string saveID { get{ return _saveID; } set { _saveID = value; } }
 
     public object SavedObject => this;
 
-    public JsonData jsonData => throw new System.NotImplementedException();
+    // TO DO: Convert localRotation to Vector3
+    public JsonData savedData
+    {
+        get
+        {
+            var result = new JsonData();
+            result[LOCAL_POSITION_KEY] = SerializeValue(transform.localPosition);
+            //result[LOCAL_ROTATION_KEY] = SerializeValue(transform.localRotation);
+            result[LOCAL_SCALE_KEY] = SerializeValue(transform.localScale);
+            return result;
+        }
+    }
+
+    private JsonData SerializeValue(Vector3 localPosition)
+    {
+        throw new NotImplementedException();
+    }
 
     private const string LOCAL_POSITION_KEY = "localPosition";
     private const string LOCAL_ROTATION_KEY = "localRotation";
@@ -27,8 +44,21 @@ public class TransformSaver : MonoBehaviour, ISaveable
     {
         
     }
-    public void LoadFromData(string saveJson)
+
+    // TO DO: Deserialize values
+    public void LoadFromData(JsonData saveJson)
     {
-        throw new System.NotImplementedException();
+        if (saveJson.ContainsKey(LOCAL_POSITION_KEY)) 
+        { 
+            // transform.localPosition = DeserializeValue<Vector3>(saveJson[LOCAL_POSITION_KEY]); 
+        }
+        if (saveJson.ContainsKey(LOCAL_ROTATION_KEY)) 
+        { 
+            // transform.localRotation = DeserializeValue<Quaternion>(saveJson[LOCAL_ROTATION_KEY]); 
+        }
+        if (saveJson.ContainsKey(LOCAL_SCALE_KEY)) 
+        { 
+            // transform.localScale = DeserializeValue<Vector3>(saveJson[LOCAL_SCALE_KEY]); 
+        }
     }
 }
