@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using LitJson;
+using LitJson; // Reinstall if errors still occur!
 
 
 public interface ISaveable
