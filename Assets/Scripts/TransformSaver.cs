@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LitJson;
 
 public class TransformSaver : MonoBehaviour, ISaveable
 {
@@ -8,6 +9,8 @@ public class TransformSaver : MonoBehaviour, ISaveable
     public string saveID {get{ return _saveID; } set { _saveID = value; } }
 
     public object SavedObject => this;
+
+    public JsonData jsonData => throw new System.NotImplementedException();
 
     private const string LOCAL_POSITION_KEY = "localPosition";
     private const string LOCAL_ROTATION_KEY = "localRotation";

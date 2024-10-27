@@ -1,17 +1,13 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+using LitJson;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using LitJson; // Reinstall if errors still occur!
 
 
 public interface ISaveable
 {
     string saveID { get; }
     object SavedObject { get; }
+    JsonData jsonData { get; }
     public string SaveData()
     {
         return JsonUtility.ToJson(SavedObject);
