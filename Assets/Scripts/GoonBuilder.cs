@@ -8,7 +8,7 @@ public abstract class GoonBuilder
     protected TargetBehavior targetBehavior;
     protected GameObject goonPrefab;
 
-    protected ObjectPool<TargetBehavior> pool;
+    public ObjectPool<TargetBehavior> pool { get; protected set; }
 
     public GoonBuilder(GameObject myGoonPrefab)
     {

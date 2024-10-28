@@ -19,7 +19,7 @@ public abstract class SaveableBehaviour : MonoBehaviour, ISaveable, ISerializati
 
     public abstract void LoadFromData(JsonData saveJson);    
 
-    public void OnBeforeSerialize()
+    public virtual void OnBeforeSerialize()
     {
         if (SaveID == null)
         {

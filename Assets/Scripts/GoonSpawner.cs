@@ -1,13 +1,22 @@
+using LitJson;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class GoonSpawner : MonoBehaviour
+public class GoonSpawner : SaveableBehaviour
 {
     public GameObject goon;
     private TargetBehavior targetBehavior;
+    public override JsonData savedData
+    {
+        get
+        {
+            var result = new JsonData();
+            return result;
+        }
+    }
     public enum GoonType { Hat, Heli, Para};
     public GoonType goonType;
 
@@ -32,6 +41,15 @@ public class GoonSpawner : MonoBehaviour
                 InvokeRepeating("MakeGoon", 1.0f, 0.75f);
                 break;
         }
+        int counter=0;
+        foreach(var obj in goonBuilder.pool.pool)
+        {
+
+            obj.GetComponent<TargetBehavior>()?.SetId(SaveID + counter);
+            counter++;
+
+        }
+       
     }
 
     void Update()
@@ -43,5 +61,10 @@ public class GoonSpawner : MonoBehaviour
     void MakeGoon()
     {
         goonBuilder.ConstructGoon(transform.position);
+    }
+
+    public override void LoadFromData(JsonData saveJson)
+    {
+        //throw new NotImplementedException();
     }
 }

@@ -8,7 +8,14 @@ public class TransformSaver : SaveableBehaviour
 {
     
     public object SavedObject => this;
-
+    struct IsActive
+    {
+        public int active;
+        public IsActive(int val)
+        {
+            active = val;
+        }
+    }
 
     public override JsonData savedData
     {
@@ -18,6 +25,7 @@ public class TransformSaver : SaveableBehaviour
             result[LOCAL_POSITION_KEY] = SerializeValue(transform.localPosition);
             result[LOCAL_ROTATION_KEY] = SerializeValue(transform.localRotation);
             result[LOCAL_SCALE_KEY] = SerializeValue(transform.localScale);
+            result[LOCAL_ACTIVE_KEY] = SerializeValue(new IsActive(this.gameObject.activeSelf ? 1 : 0));
             return result;
         }
     }
@@ -36,6 +44,7 @@ public class TransformSaver : SaveableBehaviour
     private const string LOCAL_POSITION_KEY = "localPosition";
     private const string LOCAL_ROTATION_KEY = "localRotation";
     private const string LOCAL_SCALE_KEY = "localScale";
+    private const string LOCAL_ACTIVE_KEY = "isActive";
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +72,10 @@ public class TransformSaver : SaveableBehaviour
         if (saveJson.ContainsKey(LOCAL_SCALE_KEY)) 
         { 
             transform.localScale = DeserializeValue<Vector3>(saveJson[LOCAL_SCALE_KEY]); 
+        }
+        if (saveJson.ContainsKey(LOCAL_ACTIVE_KEY))
+        {
+            gameObject.SetActive(DeserializeValue<IsActive>(saveJson[LOCAL_ACTIVE_KEY]).active==1? true:false);
         }
     }
 }

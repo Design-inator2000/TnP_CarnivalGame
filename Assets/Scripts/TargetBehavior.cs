@@ -84,5 +84,15 @@ public class TargetBehavior : TransformSaver, IPoolableObject
         base.LoadFromData(saveJson);
 
     }
+    public override void OnBeforeSerialize()
+    {
+        //_saveID = System.Guid.NewGuid().ToString();
+        
+    }
+    public void SetId(string id)
+    {
+        _saveID = id;
+    }
+
 }
 

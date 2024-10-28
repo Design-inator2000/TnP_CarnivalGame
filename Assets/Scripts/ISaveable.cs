@@ -27,7 +27,7 @@ public static class SavingService
     public static void SaveGame(string fileName)
     {
         var result = new JsonData();
-        var allSaveableObjects = Object.FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>();
+        var allSaveableObjects = Object.FindObjectsByType(typeof(MonoBehaviour), FindObjectsInactive.Include, FindObjectsSortMode.None).OfType<ISaveable>();
         if (allSaveableObjects.Count() > 0)
         {
             var savedObjects = new JsonData();
@@ -142,7 +142,8 @@ public static class SavingService
             var objects = data[OBJECTS_KEY];
             
             LoadObjectsAfterSceneLoad = (scene, loadSceneMode) => {
-                var allLoadableObjects = Object.FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>().ToDictionary(o => { Debug.Log(o); Debug.Log(o.SaveID); return o.SaveID; }, o => o);
+                Debug.Log(Object.FindObjectsByType(typeof(MonoBehaviour),FindObjectsInactive.Include,FindObjectsSortMode.None).OfType<ISaveable>().ToArray().Length);
+                var allLoadableObjects = Object.FindObjectsByType(typeof(MonoBehaviour), FindObjectsInactive.Include, FindObjectsSortMode.None).OfType<ISaveable>().ToDictionary(o => { Debug.Log(o); Debug.Log(o.SaveID); return o.SaveID; }, o => o);
                 var objectsCount = objects.Count;
                 for (int i = 0; i < objectsCount; i++)
                 {

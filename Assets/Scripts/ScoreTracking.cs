@@ -35,5 +35,9 @@ public class ScoreTracking : MonoBehaviour
         this.score = score;
         scoreTracker.text = $"Score: {score}";
     }
+    private void Awake()
+    {
+        BinarySavingService.Load(this);
+    }
 
 }

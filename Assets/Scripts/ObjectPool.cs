@@ -7,7 +7,7 @@ using UnityEngine.Pool;
 public class ObjectPool<T> where T : IPoolableObject
 {
 
-    HashSet<GameObject> pool=new HashSet<GameObject>();
+    public HashSet<GameObject> pool { get; private set; } = new HashSet<GameObject>();
 
     Queue<T> queue=new Queue<T>();
     Dictionary<T, GameObject> pooledObject=new Dictionary<T, GameObject>();
