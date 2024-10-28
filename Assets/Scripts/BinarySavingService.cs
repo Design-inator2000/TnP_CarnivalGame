@@ -10,7 +10,6 @@ public static class BinarySavingService
     public static string directory = "SaveData";
     public static string fileName = "MySave.txt";
 
-    //BinarySaveObject is an serialized intermediary object that will hold the Player's score. This object will have to be accessed by the Score tracking class.
     public static void Save(ScoreTracking saveObject)
     {
         BinaryFormatter binaryFormatter = new BinaryFormatter();
@@ -27,19 +26,14 @@ public static class BinarySavingService
         {
             try
             {
-                //if (!Directory.Exists(directory)) {Directory.CreateDirectory(Application.persistentDataPath + "/" + directory);}
-
                 BinaryFormatter binaryFormatter = new BinaryFormatter();
                 FileStream file = File.Open(GetFullPath(), FileMode.Open);
                 binarySaveObject.LoadScore((int)binaryFormatter.Deserialize(file));
                 file.Close();
-
-                //return binarySaveObject;
             }
             catch (SerializationException)
             {
                 Debug.Log("Failed to load file");
-                //return null;
             }
         }
     }
