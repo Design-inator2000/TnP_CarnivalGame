@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using LitJson;
 
-public class TargetBehavior : MonoBehaviour, IPoolableObject
+public class TargetBehavior : TransformSaver, IPoolableObject
 {
     public float speed;
 
@@ -76,6 +77,12 @@ public class TargetBehavior : MonoBehaviour, IPoolableObject
     {
         this.gameObject.SetActive(false);
         OnDestroy?.Invoke(this);
+    }
+
+    public override void LoadFromData(JsonData saveJson)
+    {
+        base.LoadFromData(saveJson);
+
     }
 }
 

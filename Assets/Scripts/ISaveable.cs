@@ -5,11 +5,12 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public interface ISaveable
 {
-    string saveID { get; }
+    string SaveID { get; }
     JsonData savedData { get; }    
     void LoadFromData(JsonData saveJson);
 }
@@ -19,7 +20,9 @@ public static class SavingService
     private const string ACTIVE_SCENE_KEY = "activeScene";
     private const string SCENES_KEY = "scenes";
     private const string OBJECTS_KEY = "objects";
-    private const string SAVEID_KEY = "$saveID";
+    private const string SAVEID_KEY = "$SaveID";
+
+    public static UnityAction<UnityEngine.SceneManagement.Scene, UnityEngine.SceneManagement.LoadSceneMode> LoadObjectsAfterSceneLoad { get; private set; }
 
     public static void SaveGame(string fileName)
     {
@@ -33,7 +36,8 @@ public static class SavingService
                 var data = saveableObject.savedData;
                 if (data.IsObject)
                 {
-                    data[SAVEID_KEY] = saveableObject.saveID;
+                    data[SAVEID_KEY] = saveableObject.SaveID;
+                    Debug.Log("SAVE ID: " + saveableObject.SaveID);
                     savedObjects.Add(data);
                 }
                 else
@@ -137,8 +141,8 @@ public static class SavingService
         {
             var objects = data[OBJECTS_KEY];
             
-            /*LoadObjectsAfterSceneLoad = (scene, loadSceneMode) => {
-                var allLoadableObjects = Object.FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>().ToDictionary(o => o.SaveID, o => o);
+            LoadObjectsAfterSceneLoad = (scene, loadSceneMode) => {
+                var allLoadableObjects = Object.FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>().ToDictionary(o => { Debug.Log(o); Debug.Log(o.SaveID); return o.SaveID; }, o => o);
                 var objectsCount = objects.Count;
                 for (int i = 0; i < objectsCount; i++)
                 {
@@ -155,7 +159,7 @@ public static class SavingService
                 System.GC.Collect();
             };
 
-            SceneManager.sceneLoaded += LoadObjectsAfterSceneLoad;*/
+            SceneManager.sceneLoaded += LoadObjectsAfterSceneLoad;
         }
         return true;
 

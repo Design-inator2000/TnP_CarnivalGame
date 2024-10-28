@@ -40,11 +40,13 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
         {
             BinarySavingService.Save(binarySaveObject);
+            SavingService.SaveGame("jsonSave.json");
         }
 
         if (Input.GetKeyDown(KeyCode.RightShift))
         {
-            BinarySavingService.Load(binarySaveObject); 
+            BinarySavingService.Load(binarySaveObject);
+            SavingService.LoadGame("jsonSave.json");
         }
     }
 }
