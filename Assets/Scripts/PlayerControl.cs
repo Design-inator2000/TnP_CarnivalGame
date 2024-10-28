@@ -10,7 +10,7 @@ public class PlayerControl : MonoBehaviour
     public GameObject bulletPrefab;
 
     //object separate from ScoreTracking that saves score value/might be better to connect it directly
-    public BinarySaveObject binarySaveObject;
+    public ScoreTracking binarySaveObject;
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +44,7 @@ public class PlayerControl : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightShift))
         {
-            binarySaveObject = BinarySavingService.Load(); 
+            BinarySavingService.Load(binarySaveObject); 
         }
     }
 }

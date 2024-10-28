@@ -391,6 +391,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3643581767235317239, guid: 7c17b9b90a591b347bdd3fce5ac2c223, type: 3}
+      propertyPath: binarySaveObject
+      value: 
+      objectReference: {fileID: 2073079764}
     - target: {fileID: 8317609305064750370, guid: 7c17b9b90a591b347bdd3fce5ac2c223, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.042676613
@@ -558,6 +562,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5025cb22675ff6c478401eaba8f00152, type: 3}
+--- !u!114 &2073079764 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 277856523391751931, guid: e723f98b72fb6bc4eb9ddcdf7c7c0969, type: 3}
+  m_PrefabInstance: {fileID: 215345130}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6c460a07bd6b704db740567fdeb9e9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2085570375
 PrefabInstance:
   m_ObjectHideFlags: 0

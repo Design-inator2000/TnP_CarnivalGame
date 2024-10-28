@@ -9,7 +9,7 @@ public class ScoreTracking : MonoBehaviour
 {    
     public TextMeshProUGUI scoreTracker; // This is the TMP element that tracks the player's score.
 
-    public int score; // This is the current score the player has.
+    public int score { get; private set; } // This is the current score the player has.
 
     // This OnEnable function subscribes the IncrementScore method to the OnScoreUpdated event.
     private void OnEnable()
@@ -27,6 +27,12 @@ public class ScoreTracking : MonoBehaviour
     public void IncrementScore(int points)
     {
         score += points;
+        scoreTracker.text = $"Score: {score}";
+    }
+
+    public void LoadScore(int score)
+    {
+        this.score = score;
         scoreTracker.text = $"Score: {score}";
     }
 

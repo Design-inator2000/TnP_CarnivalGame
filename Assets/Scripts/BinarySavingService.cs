@@ -15,35 +15,32 @@ public static class BinarySavingService
     {
         BinaryFormatter binaryFormatter = new BinaryFormatter();
         FileStream file = File.Create(GetFullPath());
-        binaryFormatter.Serialize(file, saveObject);
+        Debug.Log(file.ToString());
+        Debug.Log(saveObject.score);
+        binaryFormatter.Serialize(file, saveObject.score);
         file.Close();
     }
 
-    public static ScoreTracking Load()
+    public static void Load(ScoreTracking binarySaveObject)
     {
         if (SaveExists())
         {
             try
             {
-                if (!Directory.Exists(directory)) {Directory.CreateDirectory(Application.persistentDataPath + "/" + directory);}
+                //if (!Directory.Exists(directory)) {Directory.CreateDirectory(Application.persistentDataPath + "/" + directory);}
 
                 BinaryFormatter binaryFormatter = new BinaryFormatter();
                 FileStream file = File.Open(GetFullPath(), FileMode.Open);
-                ScoreTracking binarySaveObject = (ScoreTracking)binaryFormatter.Deserialize(file);
+                binarySaveObject.LoadScore((int)binaryFormatter.Deserialize(file));
                 file.Close();
 
-                return binarySaveObject;
+                //return binarySaveObject;
             }
             catch (SerializationException)
             {
                 Debug.Log("Failed to load file");
-                return null;
+                //return null;
             }
-        }
-        else
-        {
-            //should this be an else statement?
-            return null;
         }
     }
 
@@ -59,6 +56,6 @@ public static class BinarySavingService
 
     private static string GetFullPath()
     {
-        return Application.persistentDataPath + "/" + directory + "/" + fileName;
+        return Application.persistentDataPath + "/" + fileName;
     }
 }
